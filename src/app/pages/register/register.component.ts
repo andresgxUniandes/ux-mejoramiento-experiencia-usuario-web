@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private title: Title,
+    private router: Router,
   ) {
     this.form = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -62,6 +63,7 @@ export class RegisterComponent implements OnInit {
     }
     // TODO: llamar al servicio de registro
     console.log('Registro', this.form.value);
+    this.router.navigate(['/como-funciona']);
   }
 
   closeInvalidModal(): void {

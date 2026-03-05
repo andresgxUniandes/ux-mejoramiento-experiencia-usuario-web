@@ -1,0 +1,122 @@
+.como-funciona {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  padding-top: 4rem;
+  background: var(--color-surface);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.como-funciona__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-on-surface-variant);
+  background: var(--color-outline-variant);
+  border: none;
+  border-radius: 50%;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.como-funciona__close:hover {
+  color: var(--color-on-surface);
+  background: var(--color-outline);
+}
+
+.como-funciona__close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.como-funciona__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1.5rem;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 48rem) {
+  .como-funciona__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-container);
+  border-radius: 0.75rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--color-outline-variant);
+  min-height: 0;
+  overflow: auto;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 22rem;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.card__title {
+  margin: 0 0 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  text-decoration: underline;
+  flex-shrink: 0;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.card__list {
+  margin: 0 0 1rem;
+  padding-left: 2rem;
+  list-style-type: decimal;
+  list-style-position: outside;
+  color: var(--color-on-surface);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+  max-width: 20rem;
+  align-self: flex-start;
+}
+
+.card__list li {
+  padding: 0.5rem 0;
+}
+
+.card__disclaimer {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  line-height: 1.4;
+}
+
+.card__content .card__disclaimer {
+  text-align: left;
+  align-self: flex-start;
+}
