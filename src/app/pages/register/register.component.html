@@ -1,4 +1,13 @@
 <div class="register">
+  @if (showInvalidModal) {
+    <div class="modal-overlay" (click)="closeInvalidModal()" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <p id="modal-title" class="modal__message">Algunos campos son invalidos</p>
+        <button type="button" class="modal__btn" (click)="closeInvalidModal()">Aceptar</button>
+      </div>
+    </div>
+  }
+
   <div class="register__card">
     <img src="/icon-user.svg" alt="" class="register__icon" width="90" height="90" aria-hidden="true" />
 

@@ -1,3 +1,56 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  background: var(--color-tertiary-container);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.75rem;
+  padding: 1.5rem 2rem;
+  max-width: 20rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.modal__message {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-on-surface);
+  text-align: center;
+}
+
+.modal__btn {
+  padding: 0.5rem 1.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-on-tertiary);
+  background: var(--color-tertiary);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.modal__btn:hover {
+  filter: brightness(1.08);
+}
+
+.modal__btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .register {
   min-height: 100vh;
   display: flex;

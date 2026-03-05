@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
+  showInvalidModal = false;
 
   constructor(
     private fb: FormBuilder,
@@ -55,9 +56,23 @@ export class RegisterComponent implements OnInit {
     this.checkPasswordMatch();
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.showInvalidModal = true;
+      this.title.setTitle('Registro Web Error');
       return;
     }
     // TODO: llamar al servicio de registro
     console.log('Registro', this.form.value);
+  }
+
+  closeInvalidModal(): void {
+    this.showInvalidModal = false;
+    this.title.setTitle('Registro Web');
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.showInvalidModal) {
+      this.closeInvalidModal();
+    }
   }
 }
