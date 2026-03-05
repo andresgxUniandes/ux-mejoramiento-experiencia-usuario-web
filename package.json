@@ -1,5 +1,5 @@
 {
-  "name": "ux-test-andres",
+  "name": "ux-mejoramiento-experiencia-usuario-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:ux-test-andres": "node dist/ux-test-andres/server/server.mjs"
+    "serve:ssr:ux-mejoramiento-experiencia-usuario-web": "node dist/ux-mejoramiento-experiencia-usuario-web/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@11.6.0",

@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ux-test-andres": {
+    "ux-mejoramiento-experiencia-usuario-web": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ux-test-andres:build:production"
+              "buildTarget": "ux-mejoramiento-experiencia-usuario-web:build:production"
             },
             "development": {
-              "buildTarget": "ux-test-andres:build:development"
+              "buildTarget": "ux-mejoramiento-experiencia-usuario-web:build:development"
             }
           },
           "defaultConfiguration": "development"
