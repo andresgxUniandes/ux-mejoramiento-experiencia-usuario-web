@@ -1,0 +1,86 @@
+/**
+ * Sistema de colores - Design tokens
+ *
+ * Uso en componentes:
+ * - CSS: color: var(--color-primary); background: var(--color-primary-container);
+ * - Tailwind: bg-primary text-on-primary, bg-surface text-on-surface, etc.
+ */
+
+@theme {
+  /* Primary */
+  --color-primary: #4b5c92;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #dbe1ff;
+  --color-on-primary-container: #334478;
+
+  /* Secondary */
+  --color-secondary: #006973;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #9ef0fc;
+  --color-on-secondary-container: #004f57;
+
+  /* Tertiary */
+  --color-tertiary: #1d6b4f;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #a7f2cf;
+  --color-on-tertiary-container: #00513a;
+
+  /* Error */
+  --color-error: #904a49;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad8;
+  --color-on-error-container: #733333;
+
+  /* Surface */
+  --color-surface-dim: #d5dbdc;
+  --color-surface: #f5fafb;
+  --color-surface-bright: #f5fafb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff5f6;
+  --color-surface-container: #e9eff0;
+  --color-surface-container-high: #e3e9ea;
+  --color-surface-container-highest: #dee3e5;
+  --color-on-surface: #171d1e;
+  --color-on-surface-variant: #3f484a;
+
+  /* Outline */
+  --color-outline: #6f797a;
+  --color-outline-variant: #bfc8ca;
+}
+
+:root {
+  /* Mismas variables en :root para uso con var() en CSS/SCSS de componentes */
+  --color-primary: #4b5c92;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #dbe1ff;
+  --color-on-primary-container: #334478;
+
+  --color-secondary: #006973;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #9ef0fc;
+  --color-on-secondary-container: #004f57;
+
+  --color-tertiary: #1d6b4f;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #a7f2cf;
+  --color-on-tertiary-container: #00513a;
+
+  --color-error: #904a49;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad8;
+  --color-on-error-container: #733333;
+
+  --color-surface-dim: #d5dbdc;
+  --color-surface: #f5fafb;
+  --color-surface-bright: #f5fafb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff5f6;
+  --color-surface-container: #e9eff0;
+  --color-surface-container-high: #e3e9ea;
+  --color-surface-container-highest: #dee3e5;
+  --color-on-surface: #171d1e;
+  --color-on-surface-variant: #3f484a;
+
+  --color-outline: #6f797a;
+  --color-outline-variant: #bfc8ca;
+}
