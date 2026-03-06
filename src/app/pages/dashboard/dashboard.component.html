@@ -1,14 +1,63 @@
 <div class="dashboard">
+  @if (showNuevaAlarmaModal) {
+    <div class="alarma-modal-overlay" (click)="closeNuevaAlarmaModal()" role="dialog" aria-modal="true" aria-labelledby="alarma-modal-title">
+      <div class="alarma-modal" (click)="$event.stopPropagation()">
+        <div class="alarma-modal__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+        </div>
+        <h2 id="alarma-modal-title" class="alarma-modal__title">Nueva alarma</h2>
+        <form [formGroup]="nuevaAlarmaForm" (ngSubmit)="submitNuevaAlarma()" class="alarma-modal__form">
+          <div class="alarma-modal__field">
+            <label for="alarma-titulo" class="alarma-modal__label">Titulo</label>
+            <div class="alarma-modal__input-wrap">
+              <input id="alarma-titulo" type="text" formControlName="titulo" class="alarma-modal__input" placeholder=" " />
+              <button type="button" class="alarma-modal__clear" aria-label="Borrar" (click)="clearAlarmaField('titulo')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="alarma-modal__field">
+            <label for="alarma-descripcion" class="alarma-modal__label">Descripcion</label>
+            <div class="alarma-modal__input-wrap">
+              <input id="alarma-descripcion" type="text" formControlName="descripcion" class="alarma-modal__input" placeholder=" " />
+              <button type="button" class="alarma-modal__clear" aria-label="Borrar" (click)="clearAlarmaField('descripcion')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="alarma-modal__field">
+            <label for="alarma-hora" class="alarma-modal__label">Hora</label>
+            <div class="alarma-modal__input-wrap">
+              <input id="alarma-hora" type="text" formControlName="hora" class="alarma-modal__input" placeholder=" " />
+              <button type="button" class="alarma-modal__clear" aria-label="Borrar" (click)="clearAlarmaField('hora')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="alarma-modal__actions">
+            <button type="submit" class="alarma-modal__btn alarma-modal__btn--primary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              Crear Alarma
+            </button>
+            <button type="button" class="alarma-modal__btn alarma-modal__btn--cancel" (click)="closeNuevaAlarmaModal()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
   <aside class="dashboard__sidebar">
     <img src="/icon-user.svg" alt="" class="dashboard__avatar" width="90" height="90" aria-hidden="true" />
     <h2 class="dashboard__user-name">Nicolas Mora</h2>
     <nav class="dashboard__nav">
-      <a routerLink="/crear-alarma" class="dashboard__btn dashboard__btn--primary">
+      <button type="button" class="dashboard__btn dashboard__btn--primary" (click)="openNuevaAlarmaModal()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
         </svg>
         Crear Alarma
-      </a>
+      </button>
       <a routerLink="/integraciones" class="dashboard__btn dashboard__btn--outline">Integraciones</a>
       <a routerLink="/" class="dashboard__btn dashboard__btn--logout">Cerrar Sesion</a>
     </nav>
