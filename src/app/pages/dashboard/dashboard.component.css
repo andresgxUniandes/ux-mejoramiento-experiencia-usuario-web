@@ -391,8 +391,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
   color: var(--color-on-surface-variant);
   flex-shrink: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.dashboard__resumen-arrow:hover {
+  color: var(--color-primary);
+}
+
+.dashboard__resumen-arrow:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 @media (max-width: 48rem) {

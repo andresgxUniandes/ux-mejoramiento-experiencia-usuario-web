@@ -48,6 +48,55 @@
     </div>
   }
 
+  @if (showEditAlarmaModal) {
+    <div class="alarma-modal-overlay" (click)="closeEditAlarmaModal()" role="dialog" aria-modal="true" aria-labelledby="edit-alarma-modal-title">
+      <div class="alarma-modal" (click)="$event.stopPropagation()">
+        <div class="alarma-modal__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+        </div>
+        <h2 id="edit-alarma-modal-title" class="alarma-modal__title">Editar alarma</h2>
+        <form [formGroup]="editAlarmaForm" (ngSubmit)="submitEditAlarma()" class="alarma-modal__form">
+          <div class="alarma-modal__field">
+            <label for="edit-alarma-titulo" class="alarma-modal__label">Titulo</label>
+            <div class="alarma-modal__input-wrap">
+              <input id="edit-alarma-titulo" type="text" formControlName="titulo" class="alarma-modal__input" placeholder=" " />
+              <button type="button" class="alarma-modal__clear" aria-label="Borrar" (click)="clearEditAlarmaField('titulo')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="alarma-modal__field">
+            <label for="edit-alarma-descripcion" class="alarma-modal__label">Descripcion</label>
+            <div class="alarma-modal__input-wrap">
+              <input id="edit-alarma-descripcion" type="text" formControlName="descripcion" class="alarma-modal__input" placeholder=" " />
+              <button type="button" class="alarma-modal__clear" aria-label="Borrar" (click)="clearEditAlarmaField('descripcion')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="alarma-modal__field">
+            <label for="edit-alarma-hora" class="alarma-modal__label">Hora</label>
+            <div class="alarma-modal__input-wrap">
+              <input id="edit-alarma-hora" type="text" formControlName="hora" class="alarma-modal__input" placeholder=" " />
+              <button type="button" class="alarma-modal__clear" aria-label="Borrar" (click)="clearEditAlarmaField('hora')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="alarma-modal__actions">
+            <button type="submit" class="alarma-modal__btn alarma-modal__btn--primary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              Editar Alarma
+            </button>
+            <button type="button" class="alarma-modal__btn alarma-modal__btn--cancel" (click)="closeEditAlarmaModal()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
   <aside class="dashboard__sidebar">
     <img src="/icon-user.svg" alt="" class="dashboard__avatar" width="90" height="90" aria-hidden="true" />
     <h2 class="dashboard__user-name">Nicolas Mora</h2>
@@ -89,7 +138,7 @@
     <section class="dashboard__section">
       <h3 class="dashboard__section-title">Resumen</h3>
       <ul class="dashboard__resumen">
-        @for (act of actividades; track act.texto + act.hora) {
+        @for (act of actividades; track act.texto + act.hora; let i = $index) {
           <li class="dashboard__resumen-item">
             <span class="dashboard__resumen-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -98,11 +147,11 @@
             </span>
             <span class="dashboard__resumen-time">{{ act.hora }}</span>
             <span class="dashboard__resumen-texto">{{ act.texto }}</span>
-            <span class="dashboard__resumen-arrow" aria-hidden="true">
+            <button type="button" class="dashboard__resumen-arrow" aria-label="Editar alarma" (click)="openEditAlarmaModal(i)">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
               </svg>
-            </span>
+            </button>
           </li>
         }
       </ul>

@@ -13,14 +13,17 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   activeTab: 'diario' | 'semanal' | 'mensual' = 'diario';
   showNuevaAlarmaModal = false;
+  showEditAlarmaModal = false;
   nuevaAlarmaForm: FormGroup;
+  editAlarmaForm: FormGroup;
+  editingAlarmaIndex: number | null = null;
 
-  actividades = [
-    { hora: '10:00 AM', texto: 'Tomar Agua' },
-    { hora: '11:00 AM', texto: 'Recoger a mi hijo' },
-    { hora: '11:10 AM', texto: 'Hacer almuerzo' },
-    { hora: '22:00 PM', texto: 'Dormir' },
-    { hora: '10:00 AM', texto: 'Clase ingles' },
+  actividades: { hora: string; texto: string; descripcion: string }[] = [
+    { hora: '10:00 AM', texto: 'Tomar Agua', descripcion: '' },
+    { hora: '11:00 AM', texto: 'Recoger a mi hijo', descripcion: '' },
+    { hora: '11:10 AM', texto: 'Hacer almuerzo', descripcion: '' },
+    { hora: '22:00 PM', texto: 'Dormir', descripcion: '' },
+    { hora: '10:00 AM', texto: 'Clase ingles', descripcion: "Thiago Slang's" },
   ];
 
   constructor(
@@ -28,6 +31,11 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.nuevaAlarmaForm = this.fb.group({
+      titulo: [''],
+      descripcion: [''],
+      hora: [''],
+    });
+    this.editAlarmaForm = this.fb.group({
       titulo: [''],
       descripcion: [''],
       hora: [''],
@@ -62,10 +70,45 @@ export class DashboardComponent implements OnInit {
     this.nuevaAlarmaForm.reset();
   }
 
+  openEditAlarmaModal(index: number): void {
+    const act = this.actividades[index];
+    this.editingAlarmaIndex = index;
+    this.editAlarmaForm.patchValue({
+      titulo: act.texto,
+      descripcion: act.descripcion,
+      hora: act.hora,
+    });
+    this.showEditAlarmaModal = true;
+    this.title.setTitle('Edicion');
+  }
+
+  closeEditAlarmaModal(): void {
+    this.showEditAlarmaModal = false;
+    this.editingAlarmaIndex = null;
+    this.title.setTitle('Dashboard');
+  }
+
+  clearEditAlarmaField(controlName: string): void {
+    this.editAlarmaForm.get(controlName)?.setValue('');
+  }
+
+  submitEditAlarma(): void {
+    if (this.editingAlarmaIndex === null) return;
+    const { titulo, descripcion, hora } = this.editAlarmaForm.value;
+    this.actividades[this.editingAlarmaIndex] = {
+      texto: titulo ?? '',
+      descripcion: descripcion ?? '',
+      hora: hora ?? '',
+    };
+    this.closeEditAlarmaModal();
+  }
+
   @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.showNuevaAlarmaModal) {
       this.closeNuevaAlarmaModal();
+    } else if (this.showEditAlarmaModal) {
+      this.closeEditAlarmaModal();
     }
   }
 }
