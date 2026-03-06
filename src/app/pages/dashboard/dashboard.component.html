@@ -1,0 +1,62 @@
+<div class="dashboard">
+  <aside class="dashboard__sidebar">
+    <img src="/icon-user.svg" alt="" class="dashboard__avatar" width="90" height="90" aria-hidden="true" />
+    <h2 class="dashboard__user-name">Nicolas Mora</h2>
+    <nav class="dashboard__nav">
+      <a routerLink="/crear-alarma" class="dashboard__btn dashboard__btn--primary">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+        </svg>
+        Crear Alarma
+      </a>
+      <a routerLink="/integraciones" class="dashboard__btn dashboard__btn--outline">Integraciones</a>
+      <a routerLink="/" class="dashboard__btn dashboard__btn--logout">Cerrar Sesion</a>
+    </nav>
+  </aside>
+
+  <main class="dashboard__main">
+    <div class="dashboard__tabs">
+      <button type="button" class="dashboard__tab" [class.dashboard__tab--active]="activeTab === 'diario'" (click)="setTab('diario')">Diario</button>
+      <button type="button" class="dashboard__tab" [class.dashboard__tab--active]="activeTab === 'semanal'" (click)="setTab('semanal')">Semanal</button>
+      <button type="button" class="dashboard__tab" [class.dashboard__tab--active]="activeTab === 'mensual'" (click)="setTab('mensual')">Mensual</button>
+    </div>
+
+    <section class="dashboard__section">
+      <h3 class="dashboard__section-title">Detalles</h3>
+      <div class="dashboard__chart-wrap">
+        <svg class="dashboard__donut" viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="dashboard__donut-segment dashboard__donut--aceptadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-on-surface)" stroke-width="12" stroke-dasharray="126 126" stroke-dashoffset="0" />
+          <circle class="dashboard__donut-segment dashboard__donut--omitidas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-secondary-container)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-126" />
+          <circle class="dashboard__donut-segment dashboard__donut--rechazadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-outline)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-189" />
+        </svg>
+        <div class="dashboard__donut-legend">
+          <span class="dashboard__legend-item dashboard__legend--aceptadas">Aceptadas</span>
+          <span class="dashboard__legend-item dashboard__legend--omitidas">Omitidas</span>
+          <span class="dashboard__legend-item dashboard__legend--rechazadas">Rechazadas</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard__section">
+      <h3 class="dashboard__section-title">Resumen</h3>
+      <ul class="dashboard__resumen">
+        @for (act of actividades; track act.texto + act.hora) {
+          <li class="dashboard__resumen-item">
+            <span class="dashboard__resumen-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6L5.7 21 8 14l-6-4.6h7.6L12 2z"/>
+              </svg>
+            </span>
+            <span class="dashboard__resumen-time">{{ act.hora }}</span>
+            <span class="dashboard__resumen-texto">{{ act.texto }}</span>
+            <span class="dashboard__resumen-arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+              </svg>
+            </span>
+          </li>
+        }
+      </ul>
+    </section>
+  </main>
+</div>
