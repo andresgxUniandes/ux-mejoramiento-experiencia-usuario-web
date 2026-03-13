@@ -1,59 +1,85 @@
-# UxTestAndres
+# UX Mejoramiento Experiencia Usuario Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+Aplicación web para la gestión de alarmas (pulseAI), desarrollada con Angular. Incluye flujos de bienvenida, registro, login, explicación del producto y dashboard con alarmas.
 
-## Development server
+## Tecnologías
 
-To start a local development server, run:
+- **Angular** 21
+- **Tailwind CSS** 4
+- **TypeScript** 5.9
+- **Vitest** (tests)
+
+## Requisitos previos
+
+- **Node.js** 18+ (recomendado 20+)
+- **npm** 11+
+
+## Levantar en local
+
+1. **Clonar el repositorio** (si aún no lo tienes):
+
+   ```bash
+   git clone <url-del-repositorio>
+   cd ux-mejoramiento-experiencia-usuario-web
+   ```
+
+2. **Instalar dependencias:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Arrancar el servidor de desarrollo:**
+
+   ```bash
+   npm start
+   ```
+
+   O bien:
+
+   ```bash
+   ng serve
+   ```
+
+4. **Abrir en el navegador:**  
+   [http://localhost:4200/](http://localhost:4200/)
+
+   La app se recarga al guardar cambios en el código.
+
+## Pantallas principales
+
+| Ruta            | Descripción                          |
+|-----------------|--------------------------------------|
+| `/`             | Bienvenida (Ingresar / Registrarse)  |
+| `/ingresar`     | Login (email y contraseña)           |
+| `/registrar`    | Registro de usuario                  |
+| `/como-funciona`| Cómo funciona pulseAI (post-registro) |
+| `/dashboard`    | Dashboard con alarmas y resumen       |
+
+## Scripts disponibles
+
+| Comando        | Descripción                    |
+|----------------|--------------------------------|
+| `npm start`    | Servidor de desarrollo         |
+| `npm run build`| Build de producción            |
+| `npm run watch`| Build en modo watch (dev)      |
+| `npm test`     | Tests unitarios (Vitest)       |
+
+## Estructura del proyecto
+
+- `src/app/pages/` – Pantallas (welcome, login, register, como-funciona, dashboard)
+- `src/theme/` – Sistema de colores y variables CSS
+- `public/` – Assets estáticos (p. ej. `icon-user.svg`)
+- `src/styles.css` – Estilos globales y fuente Baloo 2
+
+## Build para producción
 
 ```bash
-ng serve
+npm run build
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Los artefactos se generan en `dist/`.
 
-## Code scaffolding
+## Licencia
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ver archivo [LICENSE](LICENSE).
