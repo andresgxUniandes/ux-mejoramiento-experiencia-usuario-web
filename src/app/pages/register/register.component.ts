@@ -1,7 +1,14 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+
+function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.get('password')?.value;
+  const confirm = control.get('confirmPassword')?.value;
+  if (confirm === '' || password === confirm) return null;
+  return { passwordMismatch: true };
+}
 
 @Component({
   selector: 'app-register',
@@ -19,30 +26,15 @@ export class RegisterComponent implements OnInit {
     private title: Title,
     private router: Router,
   ) {
-    this.form = this.fb.group({
-      nombre: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
-    });
-    this.form.get('confirmPassword')?.valueChanges.subscribe(() => {
-      this.checkPasswordMatch();
-    });
-    this.form.get('password')?.valueChanges.subscribe(() => {
-      this.checkPasswordMatch();
-    });
-  }
-
-  private checkPasswordMatch(): void {
-    const password = this.form.get('password')?.value;
-    const confirm = this.form.get('confirmPassword')?.value;
-    const control = this.form.get('confirmPassword');
-    if (confirm && password !== confirm) {
-      control?.setErrors({ ...control.errors, mismatch: true });
-    } else if (control?.hasError('mismatch')) {
-      const { mismatch: _, ...rest } = control.errors ?? {};
-      control.setErrors(Object.keys(rest).length ? rest : null);
-    }
+    this.form = this.fb.group(
+      {
+        nombre: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(3)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: passwordMatchValidator }
+    );
   }
 
   ngOnInit(): void {
@@ -54,16 +46,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.checkPasswordMatch();
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      this.showInvalidModal = true;
-      this.title.setTitle('Registro Web Error');
+    if (this.form.valid) {
+      console.log('Registro', this.form.value);
+      this.router.navigate(['/onboarding']);
       return;
     }
-    // TODO: llamar al servicio de registro
-    console.log('Registro', this.form.value);
-    this.router.navigate(['/como-funciona']);
+    this.form.markAllAsTouched();
+    const passwordMismatch = this.form.hasError('passwordMismatch');
+    const emailInvalidFormat = this.form.get('email')?.hasError('email');
+    if (passwordMismatch || emailInvalidFormat) {
+      this.showInvalidModal = true;
+      this.title.setTitle('Registro Web Error');
+    }
   }
 
   closeInvalidModal(): void {
