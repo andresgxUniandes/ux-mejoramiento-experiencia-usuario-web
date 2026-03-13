@@ -119,42 +119,130 @@
       <button type="button" class="dashboard__tab" [class.dashboard__tab--active]="activeTab === 'mensual'" (click)="setTab('mensual')">Mensual</button>
     </div>
 
-    <section class="dashboard__section">
-      <h3 class="dashboard__section-title">Detalles</h3>
-      <div class="dashboard__chart-wrap">
-        <svg class="dashboard__donut" viewBox="0 0 100 100" aria-hidden="true">
-          <circle class="dashboard__donut-segment dashboard__donut--aceptadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-on-surface)" stroke-width="12" stroke-dasharray="126 126" stroke-dashoffset="0" />
-          <circle class="dashboard__donut-segment dashboard__donut--omitidas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-secondary-container)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-126" />
-          <circle class="dashboard__donut-segment dashboard__donut--rechazadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-outline)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-189" />
-        </svg>
-        <div class="dashboard__donut-legend">
-          <span class="dashboard__legend-item dashboard__legend--aceptadas">Aceptadas</span>
-          <span class="dashboard__legend-item dashboard__legend--omitidas">Omitidas</span>
-          <span class="dashboard__legend-item dashboard__legend--rechazadas">Rechazadas</span>
-        </div>
+    <!-- Vista Diario -->
+    @if (activeTab === 'diario') {
+      <div class="dashboard__sections-row">
+        <section class="dashboard__section">
+          <h3 class="dashboard__section-title">Detalles</h3>
+          <div class="dashboard__chart-wrap">
+            <svg class="dashboard__donut" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="dashboard__donut-segment dashboard__donut--aceptadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-on-surface)" stroke-width="12" stroke-dasharray="126 126" stroke-dashoffset="0" />
+              <circle class="dashboard__donut-segment dashboard__donut--omitidas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-secondary-container)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-126" />
+              <circle class="dashboard__donut-segment dashboard__donut--rechazadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-outline)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-189" />
+            </svg>
+            <div class="dashboard__donut-legend">
+              <span class="dashboard__legend-item dashboard__legend--aceptadas">Aceptadas</span>
+              <span class="dashboard__legend-item dashboard__legend--omitidas">Omitidas</span>
+              <span class="dashboard__legend-item dashboard__legend--rechazadas">Rechazadas</span>
+            </div>
+          </div>
+        </section>
+        <section class="dashboard__section">
+          <h3 class="dashboard__section-title">Resumen</h3>
+          <ul class="dashboard__resumen">
+            @for (act of actividades; track act.texto + act.hora; let i = $index) {
+              <li class="dashboard__resumen-item">
+                <span class="dashboard__resumen-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6L5.7 21 8 14l-6-4.6h7.6L12 2z"/>
+                  </svg>
+                </span>
+                <span class="dashboard__resumen-time">{{ act.hora }}</span>
+                <span class="dashboard__resumen-texto">{{ act.texto }}</span>
+                <button type="button" class="dashboard__resumen-arrow" aria-label="Editar alarma" (click)="openEditAlarmaModal(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                  </svg>
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
       </div>
-    </section>
+    }
 
-    <section class="dashboard__section">
-      <h3 class="dashboard__section-title">Resumen</h3>
-      <ul class="dashboard__resumen">
-        @for (act of actividades; track act.texto + act.hora; let i = $index) {
-          <li class="dashboard__resumen-item">
-            <span class="dashboard__resumen-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6L5.7 21 8 14l-6-4.6h7.6L12 2z"/>
-              </svg>
-            </span>
-            <span class="dashboard__resumen-time">{{ act.hora }}</span>
-            <span class="dashboard__resumen-texto">{{ act.texto }}</span>
-            <button type="button" class="dashboard__resumen-arrow" aria-label="Editar alarma" (click)="openEditAlarmaModal(i)">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-              </svg>
-            </button>
-          </li>
-        }
-      </ul>
-    </section>
+    <!-- Vista Semanal: misma forma que Diario (Detalles + Resumen), ítems de la semana -->
+    @if (activeTab === 'semanal') {
+      <div class="dashboard__sections-row">
+        <section class="dashboard__section">
+          <h3 class="dashboard__section-title">Detalles</h3>
+          <div class="dashboard__chart-wrap">
+            <svg class="dashboard__donut" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="dashboard__donut-segment dashboard__donut--aceptadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-on-surface)" stroke-width="12" stroke-dasharray="126 126" stroke-dashoffset="0" />
+              <circle class="dashboard__donut-segment dashboard__donut--omitidas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-secondary-container)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-126" />
+              <circle class="dashboard__donut-segment dashboard__donut--rechazadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-outline)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-189" />
+            </svg>
+            <div class="dashboard__donut-legend">
+              <span class="dashboard__legend-item dashboard__legend--aceptadas">Aceptadas</span>
+              <span class="dashboard__legend-item dashboard__legend--omitidas">Omitidas</span>
+              <span class="dashboard__legend-item dashboard__legend--rechazadas">Rechazadas</span>
+            </div>
+          </div>
+        </section>
+        <section class="dashboard__section">
+          <h3 class="dashboard__section-title">Resumen</h3>
+          <ul class="dashboard__resumen">
+            @for (act of actividadesSemanal; track act.texto + act.hora; let i = $index) {
+              <li class="dashboard__resumen-item">
+                <span class="dashboard__resumen-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6L5.7 21 8 14l-6-4.6h7.6L12 2z"/>
+                  </svg>
+                </span>
+                <span class="dashboard__resumen-time">{{ act.hora }}</span>
+                <span class="dashboard__resumen-texto">{{ act.texto }}</span>
+                <button type="button" class="dashboard__resumen-arrow" aria-label="Editar alarma" (click)="openEditAlarmaModal(i, 'semanal')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                  </svg>
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    }
+
+    <!-- Vista Mensual: misma forma que Diario (Detalles + Resumen), ítems del mes -->
+    @if (activeTab === 'mensual') {
+      <div class="dashboard__sections-row">
+        <section class="dashboard__section">
+          <h3 class="dashboard__section-title">Detalles</h3>
+          <div class="dashboard__chart-wrap">
+            <svg class="dashboard__donut" viewBox="0 0 100 100" aria-hidden="true">
+              <circle class="dashboard__donut-segment dashboard__donut--aceptadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-on-surface)" stroke-width="12" stroke-dasharray="126 126" stroke-dashoffset="0" />
+              <circle class="dashboard__donut-segment dashboard__donut--omitidas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-secondary-container)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-126" />
+              <circle class="dashboard__donut-segment dashboard__donut--rechazadas" cx="50" cy="50" r="40" fill="none" stroke="var(--color-outline)" stroke-width="12" stroke-dasharray="63 189" stroke-dashoffset="-189" />
+            </svg>
+            <div class="dashboard__donut-legend">
+              <span class="dashboard__legend-item dashboard__legend--aceptadas">Aceptadas</span>
+              <span class="dashboard__legend-item dashboard__legend--omitidas">Omitidas</span>
+              <span class="dashboard__legend-item dashboard__legend--rechazadas">Rechazadas</span>
+            </div>
+          </div>
+        </section>
+        <section class="dashboard__section">
+          <h3 class="dashboard__section-title">Resumen</h3>
+          <ul class="dashboard__resumen">
+            @for (act of actividadesMensual; track act.texto + act.hora; let i = $index) {
+              <li class="dashboard__resumen-item">
+                <span class="dashboard__resumen-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6L5.7 21 8 14l-6-4.6h7.6L12 2z"/>
+                  </svg>
+                </span>
+                <span class="dashboard__resumen-time">{{ act.hora }}</span>
+                <span class="dashboard__resumen-texto">{{ act.texto }}</span>
+                <button type="button" class="dashboard__resumen-arrow" aria-label="Editar alarma" (click)="openEditAlarmaModal(i, 'mensual')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                  </svg>
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    }
   </main>
 </div>

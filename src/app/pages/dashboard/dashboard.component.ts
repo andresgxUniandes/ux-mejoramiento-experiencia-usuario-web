@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   nuevaAlarmaForm: FormGroup;
   editAlarmaForm: FormGroup;
   editingAlarmaIndex: number | null = null;
+  /** Lista que se está editando: diario, semanal o mensual */
+  editingSource: 'diario' | 'semanal' | 'mensual' | null = null;
 
   actividades: { hora: string; texto: string; descripcion: string }[] = [
     { hora: '10:00 AM', texto: 'Tomar Agua', descripcion: '' },
@@ -24,6 +26,30 @@ export class DashboardComponent implements OnInit {
     { hora: '11:10 AM', texto: 'Hacer almuerzo', descripcion: '' },
     { hora: '22:00 PM', texto: 'Dormir', descripcion: '' },
     { hora: '10:00 AM', texto: 'Clase ingles', descripcion: "Thiago Slang's" },
+  ];
+
+  /** Resumen semanal: misma información que Diario, con 2 ítems más (5 + 2 = 7) */
+  actividadesSemanal: { hora: string; texto: string; descripcion: string }[] = [
+    { hora: '10:00 AM', texto: 'Tomar Agua', descripcion: '' },
+    { hora: '11:00 AM', texto: 'Recoger a mi hijo', descripcion: '' },
+    { hora: '11:10 AM', texto: 'Hacer almuerzo', descripcion: '' },
+    { hora: '22:00 PM', texto: 'Dormir', descripcion: '' },
+    { hora: '10:00 AM', texto: 'Clase ingles', descripcion: "Thiago Slang's" },
+    { hora: '08:30 AM', texto: 'Revisar correo', descripcion: '' },
+    { hora: '14:00 PM', texto: 'Reunión equipo', descripcion: '' },
+  ];
+
+  /** Resumen mensual: misma información que Diario, con 4 ítems más (5 + 4 = 9) */
+  actividadesMensual: { hora: string; texto: string; descripcion: string }[] = [
+    { hora: '10:00 AM', texto: 'Tomar Agua', descripcion: '' },
+    { hora: '11:00 AM', texto: 'Recoger a mi hijo', descripcion: '' },
+    { hora: '11:10 AM', texto: 'Hacer almuerzo', descripcion: '' },
+    { hora: '22:00 PM', texto: 'Dormir', descripcion: '' },
+    { hora: '10:00 AM', texto: 'Clase ingles', descripcion: "Thiago Slang's" },
+    { hora: '08:30 AM', texto: 'Revisar correo', descripcion: '' },
+    { hora: '14:00 PM', texto: 'Reunión equipo', descripcion: '' },
+    { hora: '09:00 AM', texto: 'Gimnasio', descripcion: '' },
+    { hora: '19:00 PM', texto: 'Preparar cena', descripcion: '' },
   ];
 
   constructor(
@@ -70,9 +96,13 @@ export class DashboardComponent implements OnInit {
     this.nuevaAlarmaForm.reset();
   }
 
-  openEditAlarmaModal(index: number): void {
-    const act = this.actividades[index];
+  openEditAlarmaModal(index: number, source?: 'diario' | 'semanal' | 'mensual'): void {
+    const tab = source ?? this.activeTab;
+    const list = tab === 'semanal' ? this.actividadesSemanal : tab === 'mensual' ? this.actividadesMensual : this.actividades;
+    const act = list[index];
+    if (!act) return;
     this.editingAlarmaIndex = index;
+    this.editingSource = tab;
     this.editAlarmaForm.patchValue({
       titulo: act.texto,
       descripcion: act.descripcion,
@@ -85,6 +115,7 @@ export class DashboardComponent implements OnInit {
   closeEditAlarmaModal(): void {
     this.showEditAlarmaModal = false;
     this.editingAlarmaIndex = null;
+    this.editingSource = null;
     this.title.setTitle('Dashboard');
   }
 
@@ -93,13 +124,12 @@ export class DashboardComponent implements OnInit {
   }
 
   submitEditAlarma(): void {
-    if (this.editingAlarmaIndex === null) return;
+    if (this.editingAlarmaIndex === null || this.editingSource === null) return;
     const { titulo, descripcion, hora } = this.editAlarmaForm.value;
-    this.actividades[this.editingAlarmaIndex] = {
-      texto: titulo ?? '',
-      descripcion: descripcion ?? '',
-      hora: hora ?? '',
-    };
+    const item = { texto: titulo ?? '', descripcion: descripcion ?? '', hora: hora ?? '' };
+    if (this.editingSource === 'diario') this.actividades[this.editingAlarmaIndex] = item;
+    else if (this.editingSource === 'semanal') this.actividadesSemanal[this.editingAlarmaIndex] = item;
+    else this.actividadesMensual[this.editingAlarmaIndex] = item;
     this.closeEditAlarmaModal();
   }
 

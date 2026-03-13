@@ -272,6 +272,19 @@
   border-bottom-color: var(--color-primary);
 }
 
+.dashboard__sections-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.dashboard__sections-row .dashboard__section {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
 .dashboard__section {
   margin-bottom: 2rem;
 }
@@ -398,6 +411,8 @@
   flex-shrink: 0;
   cursor: pointer;
   transition: color 0.2s;
+  position: relative;
+  z-index: 1;
 }
 
 .dashboard__resumen-arrow:hover {
@@ -407,6 +422,102 @@
 .dashboard__resumen-arrow:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+/* Vista Semanal: barras por día */
+.dashboard__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dashboard__bar-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  min-width: 2.5rem;
+}
+
+.dashboard__bar-track {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background: var(--color-surface-container-high);
+}
+
+.dashboard__bar-track--inline {
+  flex: 1;
+  min-width: 6rem;
+}
+
+.dashboard__bar {
+  min-width: 2px;
+  transition: flex-grow 0.2s ease;
+}
+
+.dashboard__bar--aceptadas {
+  background: var(--color-on-surface);
+}
+
+.dashboard__bar--omitidas {
+  background: var(--color-secondary-container);
+}
+
+.dashboard__bar--rechazadas {
+  background: var(--color-outline);
+}
+
+.dashboard__bar-total {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  min-width: 2rem;
+  text-align: right;
+}
+
+/* Vista Mensual: lista por semana */
+.dashboard__resumen--weeks {
+  gap: 0.75rem;
+}
+
+.dashboard__resumen-item--week {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dashboard__resumen-item--week .dashboard__resumen-texto {
+  flex: 0 1 auto;
+  min-width: 5rem;
+}
+
+.dashboard__resumen-item--week .dashboard__resumen-time {
+  min-width: auto;
+  margin-left: auto;
+}
+
+.dashboard__totals {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.dashboard__totals-line {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-on-surface-variant);
+}
+
+.dashboard__totals-line strong {
+  color: var(--color-on-surface);
 }
 
 @media (max-width: 48rem) {
